@@ -14,29 +14,27 @@ class DioModule {
     _setupDio();
   }
 
-  static void _setupDio() {
-    _injection.registerLazySingletonAsync<Dio>(
-      () async {
-        const storage = FlutterSecureStorage();
-        var token = await storage.read(key: AppConfig.tokenKey);
-        final Dio dio = Dio(BaseOptions(
-            baseUrl: AppConfig.baseUrl,
-            followRedirects: false,
-            validateStatus: (status) => true,
-            headers: {'Authorization': token},
-            contentType: Headers.formUrlEncodedContentType));
-        if (!kReleaseMode) {
-          dio.interceptors.add(PrettyDioLogger(
-            responseHeader: true,
-            responseBody: true,
-            requestHeader: false,
-            requestBody: false,
-            request: false,
-          ));
-        }
-        return dio;
-      },
-      instanceName: dioInstanceName,
-    );
+  static void _setupDio() async {
+    const storage = FlutterSecureStorage();
+    var token = await storage.read(key: AppConfig.tokenKey);
+    _injection.registerLazySingleton<Dio>(() {
+      final Dio dio = Dio(BaseOptions(
+          baseUrl: AppConfig.baseUrl,
+          followRedirects: false,
+          validateStatus: (status) => true,
+          headers: {'Authorization': token},
+          contentType: Headers.formUrlEncodedContentType));
+      if (!kReleaseMode) {
+        dio.interceptors.add(PrettyDioLogger(
+          responseHeader: true,
+          responseBody: true,
+          requestHeader: false,
+          requestBody: false,
+          request: false,
+        ));
+      }
+      return dio;
+    }, instanceName: dioInstanceName);
+
   }
 }

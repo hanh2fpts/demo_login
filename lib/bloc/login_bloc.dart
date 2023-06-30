@@ -22,6 +22,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(const LoginState.loading());
     var result = await _accountRepositoryType.login('058C008899', 'fpts1234');
     storage.write(key: AppConfig.tokenKey, value: result!.jwt);
+
+    var test = await storage.read(key: AppConfig.tokenKey);
+
+    print(test);
     if (result.loginStatus == 0) {
       emit(const LoginState.loginSuccess());
     }

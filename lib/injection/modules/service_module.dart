@@ -7,7 +7,7 @@ class ServiceModule {
   ServiceModule._();
   static void init() {
     final injection = Injection.instance;
-     injection.registerFactory<StockGatewaySerivce>(
-         () => StockGatewaySerivce(injection(instanceName: DioModule.dioInstanceName)));
+    injection.registerFactory<StockGatewaySerivce>(
+        () => StockGatewaySerivce(injection(instanceName: DioModule.dioInstanceName)));
   }
 }
