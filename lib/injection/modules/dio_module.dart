@@ -3,26 +3,23 @@ import 'package:demo_login/utils/app_config.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioModule {
   DioModule._();
   static const String dioInstanceName = 'dioInstance';
-  static final GetIt _injection = Injection.instance;
-  static void setUp() {
-    _setupDio();
-  }
-
-  static void _setupDio() async {
-    const storage = FlutterSecureStorage();
-    var token = await storage.read(key: AppConfig.tokenKey);
-    _injection.registerLazySingleton<Dio>(() {
+  static void setupDio() {
+    final injection = Injection.instance;
+    //const storage = FlutterSecureStorage();
+    //final token = await storage.read(key: AppConfig.tokenKey);
+    injection.registerFactory<Dio>(() {
       final Dio dio = Dio(BaseOptions(
           baseUrl: AppConfig.baseUrl,
           followRedirects: false,
           validateStatus: (status) => true,
-          headers: {'Authorization': token},
+          headers: {
+            'Authorization': 'token',
+          },
           contentType: Headers.formUrlEncodedContentType));
       if (!kReleaseMode) {
         dio.interceptors.add(PrettyDioLogger(
@@ -35,6 +32,5 @@ class DioModule {
       }
       return dio;
     }, instanceName: dioInstanceName);
-
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:demo_login/repositories/catagory/category_repository_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:demo_login/repositories/report/report_repository_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'report_event.dart';
@@ -9,13 +9,20 @@ part 'report_state.dart';
 part 'report_bloc.freezed.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  ReportBloc({required ReportRepositoryType reportRepositoryType}) : super(const _Initial()) {
-    _reportRepositoryType = reportRepositoryType;
+  ReportBloc({required CategoryRepositoryType categoryRepositoryType}) : super(const _Initial()) {
+    _categoryRepositoryType = categoryRepositoryType;
     on<_Started>(_onStart);
   }
-  late final ReportRepositoryType _reportRepositoryType;
+  late final CategoryRepositoryType _categoryRepositoryType;
 
   FutureOr<void> _onStart(_Started event, Emitter<ReportState> emit) async {
-    await _reportRepositoryType.getAllStockBalance();
+    var data = await _categoryRepositoryType.getHsxCategory();
+    if (data != null) {
+      for (var element in data) {
+        print(element.all);
+        print('\n');
+        print(element.vn100);
+      }
+    }
   }
 }

@@ -3,6 +3,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'response_dto.g.dart';
 
 ResponseDto<T> deserializeResponseDto<T>(Map<String, dynamic> json) {
+  if (T is List) {
+    print('T is Listg');
+  }
   return ResponseDto<T>(
     code: json['Code'] as int,
     message: json['Message'] as String,
@@ -10,7 +13,7 @@ ResponseDto<T> deserializeResponseDto<T>(Map<String, dynamic> json) {
   );
 }
 
-ResponseDto<List<T>> deserializeListApiResponse<T>(List<Map<String, dynamic>> json) {
+ResponseDto<List<T>> deserializeListResponseDto<T>(List<Map<String, dynamic>> json) {
   return ResponseDto<List<T>>(
     code: json[0]['Code'] as int,
     message: json[1]['Message'] as String,

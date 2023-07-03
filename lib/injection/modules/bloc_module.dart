@@ -8,8 +8,8 @@ class BlocModule {
     final injection = Injection.instance;
 
     injection.registerFactory<LoginBloc>(
-        () => LoginBloc(accountRepositoryType: injection()));
+        () => LoginBloc(accountRepositoryType: injection(), storage: injection()));
 
-    injection.registerFactory<ReportBloc>(() => ReportBloc(reportRepositoryType: injection()));
+    injection.registerFactory<ReportBloc>(() => ReportBloc(categoryRepositoryType: injection()));
   }
 }

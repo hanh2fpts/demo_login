@@ -10,20 +10,23 @@ part 'login_state.dart';
 part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({required AccountRepositoryType accountRepositoryType}) : super(const _Initial()) {
+  LoginBloc(
+      {required AccountRepositoryType accountRepositoryType, required FlutterSecureStorage storage})
+      : super(const _Initial()) {
     _accountRepositoryType = accountRepositoryType;
+    _storage = storage;
     on<_Logined>(_onLogin);
   }
   late final AccountRepositoryType _accountRepositoryType;
-  get storage => const FlutterSecureStorage();
+  late final FlutterSecureStorage _storage;
   FutureOr<void> _onLogin(_Logined event, Emitter<LoginState> emit) async {
     //var userName = event.userName;
     //var passWorld = event.passWorld;
     emit(const LoginState.loading());
     var result = await _accountRepositoryType.login('058C008899', 'fpts1234');
-    storage.write(key: AppConfig.tokenKey, value: result!.jwt);
+    _storage.write(key: AppConfig.tokenKey, value: result!.jwt);
 
-    var test = await storage.read(key: AppConfig.tokenKey);
+    var test = await _storage.read(key: AppConfig.tokenKey);
 
     print(test);
     if (result.loginStatus == 0) {

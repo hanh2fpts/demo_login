@@ -1,7 +1,6 @@
 import 'package:demo_login/injection/injection.dart';
+import 'package:demo_login/injection/modules/dio_module.dart';
 import 'package:demo_login/services/stock_gateway_service.dart';
-
-import 'dio_module.dart';
 
 class ServiceModule {
   ServiceModule._();
