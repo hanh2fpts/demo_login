@@ -9,10 +9,13 @@ class ReportRepository implements ReportRepositoryType {
   @override
   Future<List<StockBalance>?> getAllStockBalance() async {
     Map<String, dynamic> params = {'exchange': 'ALL'};
-    var response = await _stockGatewaySerivce.getAsync<List<StockBalance>?>(
-        'report/marliststockblance', params);
-    print(response.data);
-    return response.data;
+    var response = await _stockGatewaySerivce.getAsync(
+      'report/marliststockblance',
+      params,
+    );
+    var listStockBalance =
+        List<StockBalance>.from(response.data['Table']!.map((e) => StockBalance.fromJson(e)));
+
+    return listStockBalance;
   }
 }
-

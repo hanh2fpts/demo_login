@@ -20,16 +20,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   late final AccountRepositoryType _accountRepositoryType;
   late final FlutterSecureStorage _storage;
   FutureOr<void> _onLogin(_Logined event, Emitter<LoginState> emit) async {
-    //var userName = event.userName;
-    //var passWorld = event.passWorld;
+    var userName = event.userName;
+    var passWorld = event.passWorld;
     emit(const LoginState.loading());
     var result = await _accountRepositoryType.login('058C008899', 'fpts1234');
-    _storage.write(key: AppConfig.tokenKey, value: result!.jwt);
-
-    var test = await _storage.read(key: AppConfig.tokenKey);
-
-    print(test);
-    if (result.loginStatus == 0) {
+    if (result != null) {
+      if (result.errorCode == 0) {
+        await _storage.write(key: AppConfig.clientCode, value: result.clientCode);
+        await _storage.write(key: AppConfig.passWord, value: passWorld);
+        await _storage.write(key: AppConfig.tokenKey, value: result.jwt);
+        await _storage.write(key: AppConfig.sessionKey, value: result.sessionNo);
+        await _storage.write(key: AppConfig.userName, value: result.clientName);
+      }
+    }
+    if (result!.loginStatus == 0) {
       emit(const LoginState.loginSuccess());
     }
   }

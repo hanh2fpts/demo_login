@@ -10,6 +10,9 @@ class BlocModule {
     injection.registerFactory<LoginBloc>(
         () => LoginBloc(accountRepositoryType: injection(), storage: injection()));
 
-    injection.registerFactory<ReportBloc>(() => ReportBloc(categoryRepositoryType: injection()));
+    injection.registerFactory<ReportBloc>(() => ReportBloc(
+          categoryRepositoryType: injection(),
+          reportRepositoryType: injection(),
+        ));
   }
 }

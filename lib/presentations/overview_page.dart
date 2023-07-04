@@ -9,12 +9,22 @@ class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ReportBloc>(
-      create: (context) => Injection.instance<ReportBloc>()..add(const ReportEvent.started()),
-      child: BlocBuilder<ReportBloc, ReportState>(
-        builder: (context, state) {
-          return Container(color: Colors.purpleAccent.shade200);
-        },
-      ),
+        create: (context) => Injection.instance<ReportBloc>(),
+        child: const MyButton());
+  }
+}
+
+class MyButton extends StatelessWidget {
+  const MyButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+          onPressed: () => context.read<ReportBloc>().add(const ReportEvent.started()),
+          child: const Text('Click')),
     );
   }
 }

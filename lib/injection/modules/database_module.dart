@@ -6,7 +6,6 @@ class DatabaseModule {
   static void init() async {
     final injection = Injection.instance;
     const storage = FlutterSecureStorage();
-    //await storage.read(key: AppConfig.tokenKey);
     injection.registerSingletonAsync<FlutterSecureStorage>(() async => storage);
   }
 }
