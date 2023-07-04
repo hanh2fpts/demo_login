@@ -1,5 +1,5 @@
 import 'package:demo_login/model/category/hose_model.dart';
-import 'package:demo_login/repositories/catagory/category_repository_type.dart';
+import 'package:demo_login/repositories/category/category_repository_type.dart';
 import 'package:demo_login/services/stock_gateway_service.dart';
 
 class CategoryRepository implements CategoryRepositoryType {

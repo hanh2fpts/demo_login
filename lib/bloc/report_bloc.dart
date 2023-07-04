@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:demo_login/repositories/catagory/category_repository_type.dart';
+import 'package:demo_login/repositories/category/category_repository_type.dart';
 import 'package:demo_login/repositories/report/report_repository_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

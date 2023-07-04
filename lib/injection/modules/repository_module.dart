@@ -1,8 +1,8 @@
 import 'package:demo_login/injection/injection.dart';
 import 'package:demo_login/repositories/account_repository.dart';
 import 'package:demo_login/repositories/account_repository_type.dart';
-import 'package:demo_login/repositories/catagory/category_repository.dart';
-import 'package:demo_login/repositories/catagory/category_repository_type.dart';
+import 'package:demo_login/repositories/category/category_repository.dart';
+import 'package:demo_login/repositories/category/category_repository_type.dart';
 import 'package:demo_login/repositories/report/report_repository.dart';
 import 'package:demo_login/repositories/report/report_repository_type.dart';
 
