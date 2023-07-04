@@ -26,13 +26,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     var result = await _accountRepositoryType.login('058C008899', 'fpts1234');
     if (result != null) {
       if (result.errorCode == 0) {
-        await _storage.write(key: AppConfig.clientCode, value: result.clientCode);
-        await _storage.write(key: AppConfig.passWord, value: passWorld);
         await _storage.write(key: AppConfig.tokenKey, value: result.jwt);
-        await _storage.write(key: AppConfig.sessionKey, value: result.sessionNo);
-        await _storage.write(key: AppConfig.userName, value: result.clientName);
       }
     }
+    var test = await _storage.read(key: AppConfig.tokenKey);
+    print('token o bloc khi moi luu :$test');
     if (result!.loginStatus == 0) {
       emit(const LoginState.loginSuccess());
     }

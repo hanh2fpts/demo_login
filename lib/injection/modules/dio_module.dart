@@ -23,9 +23,6 @@ class DioModule {
         dio.interceptors.add(PrettyDioLogger(
           responseHeader: true,
           responseBody: true,
-          requestHeader: false,
-          requestBody: false,
-          request: false,
         ));
       }
       return dio;
@@ -33,11 +30,7 @@ class DioModule {
   }
 
   static Future<String?> getToken() async {
-    const storage = FlutterSecureStorage();
-    final token = await storage.read(key: AppConfig.tokenKey);
-    var userName = await storage.read(key: AppConfig.userName);
-    print('token ----------- $token');
-    print('useName ----------- $userName');
+    final token = await Injection.instance<FlutterSecureStorage>().read(key: AppConfig.tokenKey);
     return token;
   }
 }
