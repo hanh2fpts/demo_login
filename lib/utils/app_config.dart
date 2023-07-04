@@ -1,6 +1,6 @@
 class AppConfig {
   static String baseUrl = 'http://eztrade4.fpts.com.vn';
-  static String apiVersionPrefix = '';
+  static const String apiVersionPrefix = '/sg/api/gateway/v1';
   static String tokenKey = '';
   static String clientCode = '';
   static String passWord = '';
@@ -9,7 +9,6 @@ class AppConfig {
   static String userName = '';
   static configDev() {
     baseUrl = 'http://eztrade4.fpts.com.vn';
-    apiVersionPrefix = 'api/gateway/v1/';
   }
 
   static configPro() {}
